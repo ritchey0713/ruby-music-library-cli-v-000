@@ -22,9 +22,7 @@ class Artist
   end 
   
    def self.create(artist) 
-    artist = self.new(artist)
-    artist.save 
-    artist
+   new(artist).tap{|artist|artist.save}
  end 
  
 
@@ -44,15 +42,7 @@ end
  end
  
  def genres  
-  genre_collection =[]
-  self.songs.each do |song|
-    if !genre_collection.include?(song.genre)
-      genre_collection << song.genre
-    end 
-  end 
-  genre_collection
+ self.songs.collect{|song|song.genre}.uniq
 end 
   
-
-
 end 
